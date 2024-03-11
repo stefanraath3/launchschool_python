@@ -100,5 +100,47 @@ for number in my_list:
         new_list.append(number)
 
 print(new_list)
+------------------------------
+------------------------------
+
+7. Write a find_integers function that returns a list of all the integers from my_tuple:
+
+
+my_tuple = (1, 'a', '1', 3, [7], 3.1415,
+            -4, None, {1, 2, 3}, False)
+integers = find_integers(my_tuple)
+print(integers)                    # [1, 3, -4]
+
+
+------------------------------
+My solution:
+
+my_tuple = (1, 'a', '1', 3, [7], 3.1415,
+            -4, None, {1, 2, 3}, False)
+
+
+def find_integers(input_tuple):
+    my_list = []
+    for item in input_tuple:
+        if (type(item) is int):
+            my_list.append(item)
+    return my_list
+
+integers = find_integers(my_tuple)
+print(integers)
+
+aaaah okay cool so after looking at the solution provided by launchschool, whenever you see something like 'create a new list from iterable' etc etc
+then most generally you would want to use a list comprehension, because its shorter and more concise.
+
+def find_integers(input_tuple):
+    return [ 
+        number for number in input_tuple
+        if type(number) is int
+        ]
+
+integer = find_integers(my_tuple)
+print(integer)
+
 '''
+
 
