@@ -326,5 +326,3 @@ while outer_index < len(my_list):
 
     outer_index += 1
 '''
-
-
