@@ -29,4 +29,26 @@ therefore mutating that object with set1.add(range(5, 10)) will cause a subseque
 both set1 and set2 share references to the same object, that is, they are aliases to that object in the heap.
 Assigning set2 to set1 creates a new variable in the stack, with a new stack address, but doesn't create a new object
 in the heap. instead it copies the reference from set1 into the target stack item of set2 so that both reference the same set
+
+------------------------------
+------------------------------
+3. Without running this code, what will it print? Why?
+
+dict1 = {
+    "Hitchhiker's Guide to the Galaxy": 42,
+    'Monty Python': 'The Life of Brian',
+    'Airplane!': "Don't call me Shirley!",
+}
+
+dict2 = dict(dict1)
+dict2['Monty Python'] = 'Holy Grail'
+print(dict1['Monty Python'])
+
+------------------------------
+'The Life of Brian',
+A shallow copy of dict1 is being made with the dict constructor. When shallow copies are made, the outermost level
+of the original object is copied. So in this case, since dict2 is a new variable in the stack, they are not the same object.
+Changes to dict2 does not influence dict1 because they are distinct objects, even though they have the same values. 
+dict2 was assigned dict1, so references to the same object weren't copied. in this case, dict2 is references a different 
+object than dict1
 '''
