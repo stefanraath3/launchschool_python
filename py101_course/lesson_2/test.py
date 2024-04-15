@@ -1,28 +1,12 @@
-def process_student(student_data):
-    name = student_data.get('name')
-    grade = student_data.get('grade')
-    return (name, grade)
+def titlize(sentence):
+    words = sentence.split()
+    new_words = []
 
-def average_grade(grades):
-    print(grades)
-    total = sum(grades)
-    average = total / len(grades)
-    return average
+    for word in words:
+        if len(word) > 2:
+            word = word.capitalize()
+        new_words.append(word)
+    return ' '.join(new_words)
 
-students = [
-    {'name': 'Alice', 'grade': 85},
-    {'name': 'Bob'},
-    {'name': 'Jack', 'grade': 72},
-    {'name': 'Jane', 'grade': 75},
-]
-
-def collect_grades(students):
-    grades = []
-    for student in students:
-        name, grade = process_student(student)
-        if grade:
-            grades.append(grade)
-    return grades
-
-grades = collect_grades(students)
-print(average_grade(grades))
+title = 'hello world of programming'
+print(titlize(title))
