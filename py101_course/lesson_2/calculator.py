@@ -1,59 +1,69 @@
-# Ask the user for the first number
-# Ask the user for the second number
-# Ask the user for an operation to perform
-# Perform the operation on the two numbers
-# Print the result to the terminal
+import json
 
 def prompt(message):
-    print(f'=> {message}')
-
+    print(f"==> {message}")
 
 def invalid_number(number_str):
     try:
-        int(number_str)
+        float(number_str)
     except ValueError:
         return True
-
     return False
 
-prompt('Welcome to Calculator!')
-prompt("What's your first number?")
-number1 = input()
+def messages(message, lang='en'):
+    return MESSAGES[lang][message]
 
+with open('calculator_messages.json', 'r') as file:
+    MESSAGES = json.load(file)
 
-while invalid_number(number1):
-    prompt("Hmm... that doesn't look like a valid number.")
-    number1 = input()
+print(messages('welcome'))
 
-# Ask the user for the second number
-prompt("What's the second number?")
-number2 = input()
+while True:
+    while True:
+        prompt(messages('number_prompt_1'))
+        number1 = input()
 
-while invalid_number(number2):
-    prompt("Hmm... that doesn't look like a valid number.")
-    number2 = input()
+        if not invalid_number(number1):
+            break
 
-print(f'{number1} {number2}')
+        prompt(messages('invalid_number'))
 
-# Ask the user for an operation to perform
-prompt('''What operation would you like to perform?
-\n1) Add 2) Subtract 3) Multiply 4) Divide''')
-operation = input()
+    while True:
+        prompt(messages('number_prompt_2'))
+        number2 = input()
 
-while operation not in ["1", "2", "3", "4"]:
-    prompt('You must choose 1, 2, 3, or 4')
-    operation = input()
+        if not invalid_number(number2):
+            break
 
-# Perform the operation on the two numbers
-match operation:
-    case "1":
-        output = int(number1) + int(number2)
-    case "2":
-        output = int(number1) - int(number2)
-    case "3":
-        output = int(number1) * int(number2)
-    case "4":
-        output = int(number1) / int(number2)
-# Print the result to the terminal
+        prompt(messages('invalid_number'))
 
-print(f"The result is: {output}")
+    while True:
+        prompt(messages('operation_prompt'))
+        operation = input()
+
+        if operation in ["1", "2", "3", "4"]:
+            break
+
+        prompt(messages('invalid_operation'))
+
+    match operation:
+        case "1":
+            output = float(number1) + float(number2)
+        case "2":
+            output = float(number1) - float(number2)
+        case "3":
+            output = float(number1) * float(number2)
+        case "4":
+            if float(number2) == 0:
+                prompt(messages('division_by_zero'))
+                exit(1)
+            output = float(number1) / float(number2)
+
+    output = round(output, 2)  # Round the result to two decimals
+
+    prompt(messages('result').format(output=output))
+
+    prompt(messages('another_operation'))
+    answer = input()
+    if answer[0].lower() != 'y':
+        break
